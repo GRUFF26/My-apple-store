@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> Products </title>
+  <title>Apple Store Manager</title>
   <link rel="stylesheet" href="style.css" />
-
+  <link rel="icon" href="/uploads/apple-favicon.ico" />
 </head>
 <body>
   <div class="container">
-    <h1>🛍️ Apple the best</h1>
+    <h1>🍏 Apple Store Manager</h1>
 
-    <section>
+    <section id="loginSection">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <section id="mainContent" style="display: none;">
       <h2>Add Product</h2>
       <form id="productForm">
         <input type="text" id="name" placeholder="Name" required />
@@ -19,97 +27,23 @@
         <input type="file" id="imageUpload" accept="image/*" />
         <button type="submit">Add</button>
       </form>
-    </section>
 
-    <section>
       <h2>Delete Product</h2>
       <form id="deleteForm">
         <input type="number" id="deleteId" placeholder="Product ID" required />
         <button type="submit">Delete</button>
       </form>
-    </section>
 
-    <section>
       <h2>Change Background</h2>
       <form id="bgForm">
         <input type="file" id="bgUpload" accept="image/*" />
         <button type="submit">Upload Background</button>
       </form>
+
+      <section id="productList"></section>
     </section>
 
-    <section id="productList"></section>
+    <script src="script.js"></script>
   </div>
-
-  <script>
-    const productForm = document.getElementById('productForm');
-    const deleteForm = document.getElementById('deleteForm');
-    const bgForm = document.getElementById('bgForm');
-    const productList = document.getElementById('productList');
-    let currentBg = null;
-
-    async function fetchProducts() {
-      const res = await fetch('/api/products');
-      const products = await res.json();
-      productList.innerHTML = '';
-      products.forEach(p => {
-        const item = document.createElement('div');
-        item.className = 'product-item';
-        item.innerHTML = `
-          <strong>${p.name}</strong> — <span>$${p.price}</span><br>
-          <img src="${p.image}" />
-          <p>ID: ${p.id}</p>
-        `;
-        productList.appendChild(item);
-      });
-    }
-
-    productForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const price = document.getElementById('price').value;
-      const imageInput = document.getElementById('imageUpload');
-      let imageUrl = '';
-
-      if (imageInput.files.length > 0) {
-        const formData = new FormData();
-        formData.append('image', imageInput.files[0]);
-        const uploadRes = await fetch('/upload-product-image', { method: 'POST', body: formData });
-        const data = await uploadRes.json();
-        imageUrl = data.filename;
-      }
-
-      await fetch('/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, price, image: imageUrl })
-      });
-
-      productForm.reset();
-      fetchProducts();
-    });
-
-    deleteForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const id = document.getElementById('deleteId').value;
-      await fetch(`/api/products/${id}`, { method: 'DELETE' });
-      deleteForm.reset();
-      fetchProducts();
-    });
-
-    bgForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const bgInput = document.getElementById('bgUpload');
-      if (bgInput.files.length > 0) {
-        const formData = new FormData();
-        formData.append('bg', bgInput.files[0]);
-        const res = await fetch('/upload-background', { method: 'POST', body: formData });
-        const data = await res.json();
-        currentBg = data.filename;
-        document.body.style.backgroundImage = `url('${currentBg}')`;
-      }
-    });
-
-    fetchProducts();
-  </script>
 </body>
 </html>

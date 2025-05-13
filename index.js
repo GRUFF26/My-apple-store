@@ -4,36 +4,45 @@ const path = require('path');
 const multer = require('multer');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+// Хранилище пользователей
+const USERS_FILE = path.join(__dirname, 'users.json');
+let users = fs.existsSync(USERS_FILE) ? JSON.parse(fs.readFileSync(USERS_FILE)) : [
+  { username: 'admin', password: '1234' } // простой логин
+];
+
+// Хранилище продуктов
+const PRODUCTS_FILE = path.join(__dirname, 'products.json');
+let products = fs.existsSync(PRODUCTS_FILE) ? JSON.parse(fs.readFileSync(PRODUCTS_FILE)) : [];
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Хранилище товаров
-const PRODUCTS_FILE = path.join(__dirname, 'products.json');
-let products = fs.existsSync(PRODUCTS_FILE)
-  ? JSON.parse(fs.readFileSync(PRODUCTS_FILE))
-  : [];
-
-// Загрузка изображений товаров
+// Загрузка изображений
 const uploadProductImage = multer({ dest: 'public/uploads/' });
 app.post('/upload-product-image', uploadProductImage.single('image'), (req, res) => {
   res.json({ filename: `/uploads/${req.file.filename}` });
 });
 
-// Загрузка фонового изображения
 const uploadBg = multer({ dest: 'public/background/' });
 app.post('/upload-background', uploadBg.single('bg'), (req, res) => {
   res.json({ filename: `/background/${req.file.filename}` });
 });
 
-// API: получить все продукты
+// Авторизация
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const valid = users.find(u => u.username === username && u.password === password);
+  res.json({ success: !!valid });
+});
+
+// Продукты
 app.get('/api/products', (req, res) => {
   res.json(products);
 });
 
-// API: добавить продукт
 app.post('/api/products', (req, res) => {
   const { name, price, image } = req.body;
   const id = Date.now();
@@ -43,7 +52,6 @@ app.post('/api/products', (req, res) => {
   res.json({ success: true, product });
 });
 
-// API: удалить продукт
 app.delete('/api/products/:id', (req, res) => {
   const id = parseInt(req.params.id);
   products = products.filter(p => p.id !== id);
