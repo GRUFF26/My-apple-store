@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1747105408331,
+    "name": "AirPods 4",
+    "price": "129",
+    "image": "/uploads/c69d171e716a0272c6c81ff34d7286a6"
+  },
+  {
+    "id": 1747105472467,
+    "name": "AirPods Pro 2",
+    "price": "249",
+    "image": "/uploads/71229b6114ad99c3ed408c9dcc8df524"
+  },
+  {
+    "id": 1747105798605,
+    "name": "Apple Watch Series 10",
+    "price": "399",
+    "image": "/uploads/a3dd07997bff2b0703dabd96a1a8b50d"
+  },
+  {
+    "id": 1747105871036,
+    "name": "Apple Watch Ultra 2",
+    "price": "799",
+    "image": "/uploads/3f06296136b2ce512e3659da2f8e21ae"
+  },
+  {
+    "id": 1747106052088,
+    "name": "IPhone 16e ",
+    "price": "599",
+    "image": "/uploads/7d77ddf0c0090016810912ef9312206b"
+  },
+  {
+    "id": 1747106087195,
+    "name": "IPhone 16",
+    "price": "799",
+    "image": "/uploads/5f244e06d3086608b39e01143ffe3970"
+  },
+  {
+    "id": 1747106102297,
+    "name": "IPhone 16 Pro",
+    "price": "999",
+    "image": "/uploads/9b0328541d76977abf483e0776808971"
+  },
+  {
+    "id": 1747106123385,
+    "name": "IPhone 16 Pro Max",
+    "price": "1199",
+    "image": "/uploads/6ffa3a7268c812c1ddafa7c13d9780b4"
+  },
+  {
+    "id": 1747106379791,
+    "name": "IPad Air",
+    "price": "599",
+    "image": "/uploads/62e4c59658cbdb08d314f226bb4db554"
+  },
+  {
+    "id": 1747106397262,
+    "name": "IPad Pro",
+    "price": "999",
+    "image": "/uploads/eb06e8fba785bbda716a45f0cea0ba26"
+  },
+  {
+    "id": 1747106550520,
+    "name": "MacBook Air M4",
+    "price": "1199",
+    "image": "/uploads/84fab2ad3646af3b318f5030c4245a1c"
+  },
+  {
+    "id": 1747106605686,
+    "name": "MacBook Pro M4",
+    "price": "1799",
+    "image": "/uploads/fd3a06f7a97f5f2e0a3da8b467d54431"
+  },
+  {
+    "id": 1747106759109,
+    "name": "Pro Display XDR with  Nano-texture glass",
+    "price": "5999",
+    "image": "/uploads/c848186c64c4895be79a3ef1014e39f5"
+  },
+  {
+    "id": 1747106879676,
+    "name": "Apple Vision Pro",
+    "price": "3499",
+    "image": "/uploads/53ab64c0033120bb5504b7efc126c67a"
+  }
+]
